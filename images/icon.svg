@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="128" height="128" rx="28" fill="white"/>
+  
+  <!-- 红蓝双色圆 -->
+  <circle cx="64" cy="64" r="48" fill="#1a73e8"/>
+  <path d="M64 16 A48 48 0 0 1 112 64 L64 64 Z" fill="#ea4335"/>
+  
+  <!-- 主时钟 -->
+  <circle cx="64" cy="64" r="32" stroke="white" stroke-width="3"/>
+  <line x1="64" y1="64" x2="64" y2="48" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  <line x1="64" y1="64" x2="76" y2="64" stroke="white" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- 第二时区指针 -->
+  <line x1="64" y1="64" x2="64" y2="36" stroke="#ea4335" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- 中心点 -->
+  <circle cx="64" cy="64" r="3" fill="white"/>
+</svg> 

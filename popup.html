@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Timezone Helper</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 16px;
+      font-family: 'Google Sans', Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #202124;
+    }
+
+    h1 {
+      font-size: 18px;
+      margin: 0 0 16px 0;
+      color: #1a73e8;
+    }
+
+    .timezone-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+    }
+
+    select {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #dadce0;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #202124;
+      background-color: white;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #1a73e8;
+    }
+
+    button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    #addTimezone {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    #addTimezone:hover {
+      background-color: #d2e3fc;
+    }
+
+    #save {
+      background-color: #1a73e8;
+      color: white;
+      width: 100%;
+      margin-top: 16px;
+    }
+
+    #save:hover {
+      background-color: #1557b0;
+    }
+
+    .remove-timezone {
+      background: none;
+      border: none;
+      padding: 4px;
+      cursor: pointer;
+      color: #5f6368;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .remove-timezone:hover {
+      color: #d93025;
+    }
+
+    #status {
+      display: none;
+      margin-top: 12px;
+      padding: 8px;
+      background-color: #e6f4ea;
+      color: #137333;
+      border-radius: 4px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Timezone Helper</h1>
+  <div id="timezoneList"></div>
+  <button id="addTimezone">Add Timezone</button>
+  <button id="save">Save</button>
+  <div id="status">Settings saved!</div>
+  <script src="popup.js"></script>
+</body>
+</html> 
