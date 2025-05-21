@@ -175,7 +175,7 @@ function createTooltip() {
     background: white;
     border-radius: 8px;
     padding: 16px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
     font-family: 'Google Sans', Arial, sans-serif;
     font-size: 14px;
     color: #202124;
@@ -213,7 +213,7 @@ function updateTooltip(tooltip, timeInfo, timezones) {
   }
   content += '</div>';
   
-  timezones.forEach(tz => {
+  timezones.forEach((tz, index) => {
     try {
       const startTime = new Date(timeInfo.start.toLocaleString('en-US', { timeZone: tz }));
       const startTimeStr = formatTime(startTime);
@@ -234,7 +234,7 @@ function updateTooltip(tooltip, timeInfo, timezones) {
           justify-content: space-between;
           align-items: center;
           padding: 6px 0;
-          border-bottom: 1px solid #f1f3f4;
+          ${index < timezones.length - 1 ? 'border-bottom: 1px solid #f1f3f4;' : ''}
         ">
           <span style="
             color: #5f6368;
