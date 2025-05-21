@@ -55,10 +55,74 @@ function loadSavedTimezone() {
   });
 }
 
+// Create timezone item
+function createTimezoneItem() {
+  const timezoneList = document.getElementById('timezoneList');
+  const timezoneItem = document.createElement('div');
+  timezoneItem.className = 'timezone-item';
+  
+  const select = document.createElement('select');
+  const options = getTimezoneOptions();
+  
+  options.forEach(option => {
+    const opt = document.createElement('option');
+    opt.value = option.value;
+    opt.textContent = option.label;
+    select.appendChild(opt);
+  });
+  
+  const removeButton = document.createElement('button');
+  removeButton.className = 'remove-timezone';
+  removeButton.innerHTML = '&#8722;';
+  removeButton.title = 'Remove timezone';
+  removeButton.onclick = function() {
+    timezoneItem.remove();
+  };
+  
+  timezoneItem.appendChild(select);
+  timezoneItem.appendChild(removeButton);
+  timezoneList.appendChild(timezoneItem);
+}
+
+// Save timezones
+function saveTimezones() {
+  const timezoneItems = document.querySelectorAll('.timezone-item select');
+  const timezones = Array.from(timezoneItems).map(select => select.value);
+  
+  chrome.storage.sync.set({ targetTimezones: timezones }, function() {
+    const status = document.getElementById('status');
+    status.style.display = 'block';
+    setTimeout(() => {
+      status.style.display = 'none';
+    }, 2000);
+  });
+}
+
+// Load saved timezones
+function loadSavedTimezones() {
+  chrome.storage.sync.get(['targetTimezones'], function(result) {
+    if (result.targetTimezones && result.targetTimezones.length > 0) {
+      // Clear existing timezone items
+      const timezoneList = document.getElementById('timezoneList');
+      timezoneList.innerHTML = '';
+      
+      // Create timezone items for each saved timezone
+      result.targetTimezones.forEach(timezone => {
+        createTimezoneItem();
+        const lastSelect = timezoneList.lastElementChild.querySelector('select');
+        lastSelect.value = timezone;
+      });
+    } else {
+      // Create one default timezone item
+      createTimezoneItem();
+    }
+  });
+}
+
 // Initialize popup
 document.addEventListener('DOMContentLoaded', function() {
-  initializeTimezoneSelect();
-  loadSavedTimezone();
+  loadSavedTimezones();
   
-  document.getElementById('save').addEventListener('click', saveTimezone);
+  document.getElementById('addTimezone').addEventListener('click', createTimezoneItem);
+  document.getElementById('save').addEventListener('click', saveTimezones);
 }); 

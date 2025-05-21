@@ -4,7 +4,7 @@
   <title>Timezone Helper</title>
   <style>
     body {
-      width: 300px;
+      width: 400px;
       padding: 16px;
       font-family: 'Google Sans', Arial, sans-serif;
       background-color: #f8f9fa;
@@ -22,16 +22,24 @@
       align-items: center;
       margin-bottom: 12px;
       gap: 8px;
+      width: 100%;
+      padding: 4px;
     }
 
     select {
       flex: 1;
-      padding: 8px;
+      min-width: 300px;
+      padding: 8px 32px 8px 8px;
       border: 1px solid #dadce0;
       border-radius: 4px;
       font-size: 14px;
       color: #202124;
       background-color: white;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235F6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
     }
 
     select:focus {
@@ -52,6 +60,8 @@
     #addTimezone {
       background-color: #e8f0fe;
       color: #1a73e8;
+      width: 100%;
+      margin-top: 8px;
     }
 
     #addTimezone:hover {
@@ -62,7 +72,6 @@
       background-color: #1a73e8;
       color: white;
       width: 100%;
-      margin-top: 16px;
     }
 
     #save:hover {
@@ -72,21 +81,28 @@
     .remove-timezone {
       background: none;
       border: none;
-      padding: 4px;
+      padding: 4px 8px;
       cursor: pointer;
       color: #5f6368;
       display: flex;
       align-items: center;
       justify-content: center;
+      min-width: 32px;
+      font-size: 20px;
+      font-weight: 500;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      line-height: 1;
     }
 
     .remove-timezone:hover {
       color: #d93025;
+      background-color: #fce8e6;
     }
 
     #status {
       display: none;
-      margin-top: 12px;
+      margin-top: 8px;
       padding: 8px;
       background-color: #e6f4ea;
       color: #137333;
@@ -94,14 +110,21 @@
       text-align: center;
       font-size: 14px;
     }
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
   </style>
 </head>
 <body>
   <h1>Timezone Helper</h1>
-  <div id="timezoneList"></div>
-  <button id="addTimezone">Add Timezone</button>
-  <button id="save">Save</button>
-  <div id="status">Settings saved!</div>
+  <main class="main-container">
+    <div id="timezoneList"></div>
+    <button id="addTimezone">Add Timezone</button>
+    <button id="save">Save</button>
+    <div id="status">Settings saved!</div>
+  </main>
   <script src="popup.js"></script>
 </body>
 </html> 
