@@ -1,6 +1,16 @@
 // Get timezone list
 function getTimezoneList() {
-  return Intl.supportedValuesOf('timeZone');
+  const timezones = Intl.supportedValuesOf('timeZone');
+  return timezones.sort((a, b) => {
+    // 首先按区域分组
+    const regionA = a.split('/')[0];
+    const regionB = b.split('/')[0];
+    if (regionA !== regionB) {
+      return regionA.localeCompare(regionB);
+    }
+    // 然后按城市名排序
+    return a.localeCompare(b);
+  });
 }
 
 // Get timezone options
@@ -64,6 +74,13 @@ function createTimezoneItem() {
   const select = document.createElement('select');
   const options = getTimezoneOptions();
   
+  // 添加默认选项
+  const defaultOption = document.createElement('option');
+  defaultOption.value = '';
+  defaultOption.textContent = 'Select a timezone';
+  select.appendChild(defaultOption);
+  
+  // 添加时区选项
   options.forEach(option => {
     const opt = document.createElement('option');
     opt.value = option.value;
@@ -101,20 +118,27 @@ function saveTimezones() {
 // Load saved timezones
 function loadSavedTimezones() {
   chrome.storage.sync.get(['targetTimezones'], function(result) {
+    const timezoneList = document.getElementById('timezoneList');
+    timezoneList.innerHTML = '';
+    
     if (result.targetTimezones && result.targetTimezones.length > 0) {
-      // Clear existing timezone items
-      const timezoneList = document.getElementById('timezoneList');
-      timezoneList.innerHTML = '';
-      
-      // Create timezone items for each saved timezone
+      // 加载保存的时区
       result.targetTimezones.forEach(timezone => {
         createTimezoneItem();
         const lastSelect = timezoneList.lastElementChild.querySelector('select');
         lastSelect.value = timezone;
       });
     } else {
-      // Create one default timezone item
-      createTimezoneItem();
+      // 设置默认时区：墨尔本和新加坡
+      const defaultTimezones = ['Australia/Melbourne', 'Asia/Singapore'];
+      defaultTimezones.forEach(timezone => {
+        createTimezoneItem();
+        const lastSelect = timezoneList.lastElementChild.querySelector('select');
+        lastSelect.value = timezone;
+      });
+      
+      // 保存默认时区设置
+      chrome.storage.sync.set({ targetTimezones: defaultTimezones });
     }
   });
 }
