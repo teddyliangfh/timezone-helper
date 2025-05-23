@@ -2,13 +2,13 @@
 function getTimezoneList() {
   const timezones = Intl.supportedValuesOf('timeZone');
   return timezones.sort((a, b) => {
-    // 首先按区域分组
+    // First sort by region
     const regionA = a.split('/')[0];
     const regionB = b.split('/')[0];
     if (regionA !== regionB) {
       return regionA.localeCompare(regionB);
     }
-    // 然后按城市名排序
+    // Then sort by city name
     return a.localeCompare(b);
   });
 }
@@ -74,13 +74,13 @@ function createTimezoneItem() {
   const select = document.createElement('select');
   const options = getTimezoneOptions();
   
-  // 添加默认选项
+  // Add default option
   const defaultOption = document.createElement('option');
   defaultOption.value = '';
   defaultOption.textContent = 'Select a timezone';
   select.appendChild(defaultOption);
   
-  // 添加时区选项
+  // Add timezone options
   options.forEach(option => {
     const opt = document.createElement('option');
     opt.value = option.value;
@@ -122,14 +122,14 @@ function loadSavedTimezones() {
     timezoneList.innerHTML = '';
     
     if (result.targetTimezones && result.targetTimezones.length > 0) {
-      // 加载保存的时区
+      // Load saved timezones
       result.targetTimezones.forEach(timezone => {
         createTimezoneItem();
         const lastSelect = timezoneList.lastElementChild.querySelector('select');
         lastSelect.value = timezone;
       });
     } else {
-      // 设置默认时区：墨尔本和新加坡
+      // Set default timezones: Melbourne and Singapore
       const defaultTimezones = ['Australia/Melbourne', 'Asia/Singapore'];
       defaultTimezones.forEach(timezone => {
         createTimezoneItem();
@@ -137,7 +137,7 @@ function loadSavedTimezones() {
         lastSelect.value = timezone;
       });
       
-      // 保存默认时区设置
+      // Save default timezone settings
       chrome.storage.sync.set({ targetTimezones: defaultTimezones });
     }
   });
